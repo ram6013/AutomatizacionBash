@@ -103,7 +103,7 @@ destroy(){
 case $1 in
     add)
         comprobacionAdd $@
-        if [ $? -eq 0 ]; then  # Verifica si la función comprobacionAdd devolvió 0
+        if [ $? -eq 0 ]; then  
             add "$2"
         fi
         ;;
@@ -126,8 +126,8 @@ case $1 in
     create)
 
         comprobacionAdd $@
-        if [ $? -eq 0 ]; then  # Verifica si la función comprobacionAdd devolvió 0
-            add "$2"
+        if [ $? -eq 0 ]; then  
+            create "$2"
         fi
         ;;
     destroy)
