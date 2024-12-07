@@ -6,4 +6,3 @@ _toDo_completions() {
     COMPREPLY=( $(compgen -W "$commands" -- "$cur") )
 }
 complete -F _toDo_completions toDo
-# /home/ramon/Documentos/Bash/toDo_tabs.sh

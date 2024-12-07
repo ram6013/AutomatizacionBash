@@ -14,6 +14,9 @@ comprobacion(){
         echo "No hace falta añadir nada, se continura con el proceso por default."
     fi
 }
+arranque(){
+    cat "$basePath/general_task.txt"
+}
 add(){
     if [ -z "$1" ]; then
         echo "Error: Necesitas proporcionar un nombre para la tarea."
@@ -101,6 +104,9 @@ destroy(){
     echo "Se ha borrado con éxito."
 }
 case $1 in
+    arranque)
+        arranque 
+        ;;
     add)
         comprobacionAdd $@
         if [ $? -eq 0 ]; then  
@@ -137,7 +143,7 @@ case $1 in
     help)
         echo -e "   Uso:      toDo [add|list|remove|done|clear]\n"
         echo -e "   add:      Añadir una tarea a la lista. Se debe especificar el nombre de la tarea y luego seleccionar donde añadir. Ejemplo: toDo add 'Comprar pan'"
-        echo -e "   list:     Mostrar las listas de tareas y de Done.Se debe de seleccionar cual ver.\n"
+        echo -e "   list:     Mostrar las listas de tareas. Se debe de seleccionar cual ver.\n"
         echo -e "   remove:   Borrar una tarea de la lista. Se debe elegir el nombre de la tarea que se quiere borrar y de donde. Ejemplo: toDo remove\n"
         echo -e "   done:     Marcar una tarea como realizada. Se debe elegir el nombre de la tarea. Ejemplo: toDo done\n"
         echo -e "   clear:    Limpiar la lista de tareas o de Done. Se debe elegir cual quieres limpiar. Ejemplo: toDo clear\n"
