@@ -1,10 +1,12 @@
 ruta_actual="/home/ramon/Documentos/Bash/passwd"
 cd "$ruta_actual"
 source .env
+
 encript() {
     contenido="$@"
     contenido=$(echo "$contenido" | tr ' ' '\n')
     echo "$contenido" > "$name2"
+    echo "$passwd"
     gpg --batch --yes --passphrase "$passwd" -c "$name2"
     rm "$name2"
 }
@@ -13,9 +15,27 @@ descript(){
     contenido=$(gpg --decrypt "$name_arch")
     if [ $? -ne 0 ] || [ -z "$contenido" ]; then
         echo "Error al descifrar el archivo. Asegúrate de que la contraseña sea correcta."
+        echo "que concho pasa"
         exit 1
     fi
 
+}
+
+add(){
+    cd "$ruta"
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        echo "Error: Necesitas proporcionar un nombre y una contraseña."
+        return 1
+    fi
+    name="$1"
+    contra="$2"
+    new="$name:$contra"
+    echo "$new" 
+    descript
+    contenido="$contenido$(echo -e "\n$new")"
+    echo "esto es $contenido"
+    encript "$contenido"
+    echo "Se ha añadido con éxito."
 }
 
 eliminar() {
@@ -72,9 +92,18 @@ generar() {
     echo "Se ha generado con éxito"
 }
 
-
-
+comprobacion(){
+    if [ ! -f "$ruta/$name_arch" ]; then
+    cd "$ruta"
+    echo "____Listado_de_contraseñas______" > "$name2"
+    gpg -c "$name2"
+fi
+}
+comprobacion
 case $1 in 
+    add)
+    add "$2" "$3"
+    ;;
     generar)
     generar "$2" "$3"
     ;;
