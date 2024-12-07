@@ -1,8 +1,6 @@
 ruta_actual="/home/ramon/Documentos/Bash/passwd"
-echo "$ruta_actual"
 cd "$ruta_actual"
 source .env
-
 encript() {
     contenido="$@"
     contenido=$(echo "$contenido" | tr ' ' '\n')
@@ -12,7 +10,7 @@ encript() {
 }
 
 descript(){
-    contenido=$(gpg --decrypt "$name")
+    contenido=$(gpg --decrypt "$name_arch")
     if [ $? -ne 0 ] || [ -z "$contenido" ]; then
         echo "Error al descifrar el archivo. Asegúrate de que la contraseña sea correcta."
         exit 1
